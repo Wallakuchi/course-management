@@ -1,0 +1,26 @@
+@import "tailwindcss";
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #f3f4f6;
+}
+@theme {
+  --text-tiny: 0.625rem;
+  --color-primary: #641987;
+  --color-secondary: #9b5fb7;
+  --color-dark: #232632;
+  --color-header: #364153;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
