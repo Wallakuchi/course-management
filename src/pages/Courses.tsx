@@ -37,7 +37,7 @@ export function Courses() {
     <div className="">
       {/* add course for admin only */}
       {isAdmin && (
-        <div className="flex justify-end -mt-8">
+        <div className="flex justify-end -mt-2">
           <Button>Add Course</Button>
         </div>
       )}

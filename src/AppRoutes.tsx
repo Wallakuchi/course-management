@@ -21,7 +21,17 @@ const router = createBrowserRouter(
       element: <AppLayout />,
       children: [
         {
-          path: "/home",
+          index: true,
+          path: "/",
+          element: <Courses />,
+        },
+        {
+          index: true,
+          path: ROUTES.COURSES,
+          element: <Courses />,
+        },
+        {
+          path: ROUTES.HOME,
           element: <Home />,
         },
         {
@@ -36,10 +46,7 @@ const router = createBrowserRouter(
           path: ROUTES.SETTING,
           element: <Settings />,
         },
-        {
-          path: ROUTES.COURSES,
-          element: <Courses />,
-        },
+
         {
           path: ROUTES.COURSE_DEATAILS,
           element: <PlaylistsDetails />,

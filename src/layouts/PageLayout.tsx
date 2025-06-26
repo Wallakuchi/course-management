@@ -36,7 +36,7 @@ export function PageLayout({
   return (
     <div className="flex flex-col h-full w-full">
       <AppHeader {...restAppHeaderProps} right={headerRight} />
-      <div ref={myDivRef} className="flex-grow overflow-y-auto p-4">
+      <div ref={myDivRef} className="flex-grow overflow-y-auto">
         <div
           className={classNames(
             "shadow-md print:shadow-none bg-white w-full",
