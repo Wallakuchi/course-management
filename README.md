@@ -17,6 +17,18 @@ npm run dev (to run the project)
 
 ```
 
+## Login Credentials
+
+```bash
+admin
+Id: admin
+Password: admin123
+
+user
+Id: user
+Password: user123
+```
+
 ## 🚀 Features
 
 ### 👨‍🎓 Student Side
