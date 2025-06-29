@@ -1,54 +1,53 @@
-# React + TypeScript + Vite
+# 📚 Online Course Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based web application for managing and exploring online courses. This platform provides two distinct user roles:
 
-Currently, two official plugins are available:
+- **Students** can browse and view course details.
+- **Admins** have access to a secure panel to manage course data (Create, Read, Update, Delete).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Use the following commands to run the project
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```bash
+npm install (to install the module)
+npm run dev (to run the project)
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Features
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### 👨‍🎓 Student Side
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+- Browse available courses
+- View detailed course information
+- Responsive and clean UI
+
+### 👨‍💼 Admin Side
+
+- Secure login for admin
+- Add new courses
+- Update existing course details
+- Delete courses
+- View full list of courses
+- Course form validation and user feedback
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology                             | Description                                   |
+| -------------------------------------- | --------------------------------------------- |
+| **React.js**                           | Frontend library for building user interfaces |
+| **React Router**                       | Routing between pages (student/admin views)   |
+| **Context API / Redux**                | State management (if implemented)             |
+| **Axios / Fetch API**                  | For API calls                                 |
+| **CSS / Tailwind / Styled Components** | UI Styling                                    |
+| **Node.js / Express (optional)**       | Backend for managing data and authentication  |
+| **MongoDB / Firebase / JSON Server**   | Database or mock backend                      |
+
+---
+
+## 📂 Project Structure
