@@ -1,18 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "./pages/Home";
 import { ROUTES } from "./constants/routes";
 import { Login } from "./pages/Login";
 import { PageNotFound } from "./pages/PageNotFound";
-import { AuthProvider } from "./contexts/AuthProvider";
 import { AppLayout } from "./layouts/AppLayout";
-import Playlists from "./pages/Playlists";
-import Contents from "./pages/Contents";
 import { Logout } from "./pages/Logout";
-import { AppProvider } from "./contexts/AppProvider";
-import Settings from "./pages/Settings";
 import PlaylistsDetails from "./pages/Playlists-Deatails";
 import { Courses } from "./pages/Courses";
 import CourseVideos from "./pages/CourseVideos";
+import { useAppDispatch } from "./app/hooks";
+import { useEffect } from "react";
+import { fetchCourse } from "./features/course/courseSlice";
 
 const router = createBrowserRouter(
   [
@@ -26,27 +23,9 @@ const router = createBrowserRouter(
           element: <Courses />,
         },
         {
-          index: true,
           path: ROUTES.COURSES,
           element: <Courses />,
         },
-        {
-          path: ROUTES.HOME,
-          element: <Home />,
-        },
-        {
-          path: ROUTES.PLAYLISTS,
-          element: <Playlists />,
-        },
-        {
-          path: ROUTES.CONTENTS,
-          element: <Contents />,
-        },
-        {
-          path: ROUTES.SETTING,
-          element: <Settings />,
-        },
-
         {
           path: ROUTES.COURSE_DEATAILS,
           element: <PlaylistsDetails />,
@@ -74,11 +53,10 @@ const router = createBrowserRouter(
 );
 
 export function AppRoutes() {
-  return (
-    <AppProvider>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </AppProvider>
-  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCourse());
+  }, [dispatch]);
+  return <RouterProvider router={router} />;
 }

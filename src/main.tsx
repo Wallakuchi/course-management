@@ -2,6 +2,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles/index.css";
 import { AppRoutes } from "./AppRoutes";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 async function enableMocking() {
   if (import.meta.env.VITE_ENABLE_API_MOCK !== "true") {
@@ -19,7 +21,9 @@ enableMocking()
   .then(() => {
     createRoot(document.getElementById("root")!).render(
       <StrictMode>
-        <AppRoutes />
+        <Provider store={store}>
+          <AppRoutes />
+        </Provider>
       </StrictMode>
     );
   })

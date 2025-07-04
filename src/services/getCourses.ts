@@ -10,7 +10,7 @@ export async function getCourses(): Promise<IAppContext[] | []> {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log("login user service error", error);
+    console.log("Error while getting the courses :", error);
     return [];
   }
 }

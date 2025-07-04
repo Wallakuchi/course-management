@@ -4,15 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../constants/validationSchema";
 import { FormRow } from "../components/FormRow";
 import { Button } from "../components/Button";
-import { loginUser } from "../services/loginUser";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
-import { useAuthContext } from "../contexts/AuthProvider";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { fetchUsers, setUser } from "../features/user/userSlice";
+import { isAuthenticated } from "../features/user/selectors";
 
 export function Login() {
-  const { addUser, isAuthenticated } = useAuthContext();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(isAuthenticated);
+  const { loading } = useAppSelector((state) => state.user);
 
   const {
     register,
@@ -22,16 +25,16 @@ export function Login() {
   } = useForm<ILoginData>({ resolver: yupResolver(loginSchema) });
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuth) {
       navigate(ROUTES.COURSES);
     }
-  }, [isAuthenticated]);
+  }, [isAuth]);
 
   const onSubmit = async (loginData: ILoginData) => {
-    const res = await loginUser(loginData);
+    const { payload: user } = await dispatch(fetchUsers(loginData));
 
-    if (res && res.id) {
-      addUser(res);
+    if (user && user.id) {
+      dispatch(setUser(user));
       navigate(ROUTES.COURSES);
     } else {
       setError("password", {
@@ -61,7 +64,12 @@ export function Login() {
             {...register("password")}
           />
           <div className="flex justify-end">
-            <Button type="submit" className="w-max">
+            <Button
+              type="submit"
+              className="w-max"
+              disabled={loading}
+              loading={loading}
+            >
               Login
             </Button>
           </div>

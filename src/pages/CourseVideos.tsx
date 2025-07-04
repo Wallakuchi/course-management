@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { useAppContext } from "../contexts/AppProvider";
+import { useAppSelector } from "../app/hooks";
 
 export default function CourseVideos() {
   const { id: selectedCourseId } = useLocation().state;
-  const { allCourses } = useAppContext();
+  const { courses: allCourses } = useAppSelector((state) => state.courses);
 
   const selectedCourse = useMemo(
     () => allCourses.find((course) => course.id === selectedCourseId),

@@ -1,21 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
-import { useAppContext } from "../contexts/AppProvider";
 import { ROUTES } from "../constants/routes";
 import { BiSearch } from "react-icons/bi";
 import { useCallback, useEffect, useState, type ChangeEvent } from "react";
 import type { IAppContext } from "../types";
-import { useAuthContext } from "../contexts/AuthProvider";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { CheckIfAdmin } from "../features/user/selectors";
+import { fetchCourse } from "../features/course/courseSlice";
 
 export function Courses() {
   const [courses, setCourses] = useState<IAppContext[]>();
-  const { allCourses } = useAppContext();
-  const { isAdmin } = useAuthContext();
+  const [allCourses, setAllCourses] = useState<IAppContext[]>([]);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const isAdmin = useAppSelector(CheckIfAdmin);
+
+  const getCourses = useCallback(async () => {
+    const { payload } = await dispatch(fetchCourse());
+    setAllCourses(payload);
+    setCourses(payload);
+    return payload;
+  }, [dispatch]);
 
   useEffect(() => {
-    setCourses(allCourses);
-  }, [allCourses]);
+    getCourses();
+  }, [getCourses]);
 
   const handleViewPlaylists = useCallback((id: string) => {
     navigate(ROUTES.COURSE_DEATAILS, { state: { id } });
@@ -68,6 +77,8 @@ export function Courses() {
           courses.map((course) => (
             <div
               key={course.id}
+              role="button"
+              onClick={() => handleViewPlaylists(course.id)}
               className="flex p-4 flex-col gap-y-4 text-white border rounded-xl min-w-[250px] min-h-[200px] bg-linear-to-t from-gray-400 to-gray-800 hover:bg-gray-200 cursor-pointer"
             >
               <div className="flex gap-x-4">
@@ -87,13 +98,7 @@ export function Courses() {
                 className="rounded-sm"
               />
               <p className="h-10 mb-2">{`Complete ${course.title}`}</p>
-              <Button
-                size="lg"
-                className=""
-                onClick={() => handleViewPlaylists(course.id)}
-              >
-                View Course
-              </Button>
+              <Button size="lg">View Course</Button>
             </div>
           ))}
       </div>

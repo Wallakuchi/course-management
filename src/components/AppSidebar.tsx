@@ -3,12 +3,12 @@ import { ROUTES } from "../constants/routes";
 import { Menu } from "./Menu";
 import { MdOutlinePlaylistPlay, MdLogout } from "react-icons/md";
 import { FaGraduationCap, FaHome } from "react-icons/fa";
-import { useAuthContext } from "../contexts/AuthProvider";
 // import { Button } from "./Button";
 import { useMemo } from "react";
+import { useAppSelector } from "../app/hooks";
 
 export const AppSidebar = () => {
-  const { user } = useAuthContext();
+  const { user } = useAppSelector((state) => state.user);
 
   const menus = useMemo(
     () => [

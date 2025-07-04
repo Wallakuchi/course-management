@@ -2,7 +2,7 @@ import { API_URLS } from "../constants/apiUrls";
 import type { ILoginData, IUser } from "../types";
 import { resolveApiUrl } from "../utils";
 
-export async function loginUser(payload: ILoginData): Promise<IUser | false> {
+export async function loginUser(payload: ILoginData): Promise<IUser> {
   const url = resolveApiUrl(API_URLS.loginUser);
 
   try {
@@ -15,6 +15,6 @@ export async function loginUser(payload: ILoginData): Promise<IUser | false> {
     return result;
   } catch (error) {
     console.log("login user service error", error);
-    return false;
+    return {} as IUser;
   }
 }

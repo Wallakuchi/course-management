@@ -1,27 +1,30 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthProvider";
 import { useEffect } from "react";
 import { ROUTES } from "../constants/routes";
 import { AppSidebar } from "../components/AppSidebar";
 import HeaderRight from "../components/HeaderRight";
 import { PageLayout } from "./PageLayout";
+import { useAppSelector } from "../app/hooks";
+import { initialised, isAuthenticated } from "../features/user/selectors";
 
 export function AppLayout() {
-  const { initialised, isAuthenticated, user } = useAuthContext();
+  const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  const isAuth = useAppSelector(isAuthenticated);
+  const isInit = useAppSelector(initialised);
 
   useEffect(() => {
-    if (initialised && !isAuthenticated) {
+    if (isInit && !isAuth) {
       navigate(ROUTES.LOGIN);
     }
-  }, [initialised, isAuthenticated, navigate]);
+  }, [isInit, isAuth]);
 
   return (
     <div className="flex bg-white h-full">
       <AppSidebar />
       <div className="flex-grow overflow-y-auto">
         <PageLayout heading={user?.role} headerRight={<HeaderRight />}>
-          {isAuthenticated && <Outlet />}
+          {isAuth && <Outlet />}
         </PageLayout>
       </div>
     </div>

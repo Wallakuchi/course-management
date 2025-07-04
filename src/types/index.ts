@@ -52,3 +52,9 @@ export interface IUser {
 export interface IClassName {
   className?: string;
 }
+
+export interface IUserInitialState {
+  loading: boolean;
+  user: IUser;
+  error: string;
+}

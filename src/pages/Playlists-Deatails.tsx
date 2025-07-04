@@ -1,16 +1,16 @@
 import { BiBookmark, BiCalendar } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppContext } from "../contexts/AppProvider";
 import { useCallback, useMemo } from "react";
 import { Button } from "../components/Button";
-import { useAuthContext } from "../contexts/AuthProvider";
 import { ROUTES } from "../constants/routes";
 import { deleteLesson } from "../services/deleteLesson";
+import { useAppSelector } from "../app/hooks";
+import { CheckIfAdmin } from "../features/user/selectors";
 
 export default function PlaylistsDetails() {
   const { id: selectedCourseId } = useLocation().state;
-  const { allCourses } = useAppContext();
-  const { isAdmin } = useAuthContext();
+  const { courses: allCourses } = useAppSelector((state) => state.courses);
+  const isAdmin = useAppSelector(CheckIfAdmin);
   const navigate = useNavigate();
 
   const selectedCourse = useMemo(
